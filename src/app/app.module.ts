@@ -3,10 +3,12 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { VizComponent } from './viz/viz.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    VizComponent
   ],
   imports: [
     BrowserModule,
