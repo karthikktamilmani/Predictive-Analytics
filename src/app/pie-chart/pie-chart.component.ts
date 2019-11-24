@@ -45,7 +45,7 @@ export class PieChartComponent implements OnInit {
           data: this.pieResponse,
           backgroundColor: [
             'rgba(54, 162, 235, 0.9)',
-            'rgba(75, 192, 192, 0.9)',
+            '#007AFF',
             '#dc3545',
             'rgba(255, 206, 86, 0.9)'
           ],

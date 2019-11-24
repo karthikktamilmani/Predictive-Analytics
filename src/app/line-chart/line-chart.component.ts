@@ -24,7 +24,7 @@ export class LineChartComponent implements OnInit {
           data: [12, 19, 3, 5, 2, 3],
 
           borderColor: [
-            '#007AFF'
+            '#dc3545'
           ],
           backgroundColor: [
             'rgba(255,255,255, 0.1)'
