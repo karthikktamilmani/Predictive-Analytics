@@ -13,7 +13,7 @@ import { DoughnutChartComponent } from './doughnut-chart/doughnut-chart.componen
   declarations: [
     AppComponent,
     VizComponent,
-    LayoutComponent
+    LayoutComponent,
     PieChartComponent,
     LineChartComponent,
     DoughnutChartComponent
