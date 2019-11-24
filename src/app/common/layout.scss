@@ -191,7 +191,7 @@ $sidebar-sm-width: 70px;
       width: 200px;
       border-color: #e8e8e8;
       background-color: #fff!important;
-      border-bottom-width: 3px;
+      border-bottom-color: #8495C2;
       font-size: 12px;
       border-radius: 0;
       -webkit-transition: all 0.4s ease-in;
@@ -362,6 +362,10 @@ $sidebar-sm-width: 70px;
 
 .form-control:focus:not(.is-invalid) {
   border-color: #2e8fda;
+}
+
+select, option {
+  text-transform: capitalize;
 }
 
 .cursor-pointer {

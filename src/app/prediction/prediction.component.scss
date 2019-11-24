@@ -1,0 +1,89 @@
+@import '../common/layout.scss';
+
+.course-wrapper {
+  position: relative;
+  top: 120px;
+  background-color: #F8F9FD;
+
+  .card-img-right {
+    width: 45%;
+  }
+
+  .actions {
+    position: relative;
+    bottom: -75px;
+  }
+}
+
+
+.card {
+  min-width: 300px;
+  border-color: #eef0f5;
+  margin-bottom: 55px;
+  transition: all 0.3s ease-in;
+
+  &.map-view {
+    background-color: transparent;
+    border: none;
+    .card-body {
+      background-color: transparent;
+      padding: 0;
+    }
+  }
+
+  &:hover {
+    border-color: none;
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+  }
+}
+
+h4 {
+  font-size: 16px;
+}
+
+.title {
+  font-size: 16px;
+  padding-top: 20px;
+  padding-left: 20px;
+}
+
+
+.card-body {
+  background-color: #fff;
+
+  .code {
+    color: #343957;
+    opacity: 0.9;
+  }
+}
+
+h3 {
+  font-size: 16px;
+  color: #343957;
+}
+
+.amount {
+    font-size: 33px;
+    margin: 45px 0 0px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.help-txt {
+  color: #ffa502 !important;
+      font-size: 14px;
+    text-align: center;
+  margin-bottom: 10px;
+}
+
+.cost-box {
+  box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+}
+
+.progress {
+  margin-bottom: 10px;
+}
+
+.table {
+  font-size: 14px;
+}

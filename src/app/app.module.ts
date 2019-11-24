@@ -9,6 +9,7 @@ import { PieChartComponent } from './pie-chart/pie-chart.component';
 import { LineChartComponent } from './line-chart/line-chart.component';
 import { DoughnutChartComponent } from './doughnut-chart/doughnut-chart.component';
 import { HttpClientModule } from '@angular/common/http';
+import { PredictionComponent } from './prediction/prediction.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { HttpClientModule } from '@angular/common/http';
     LayoutComponent,
     PieChartComponent,
     LineChartComponent,
-    DoughnutChartComponent
+    DoughnutChartComponent,
+    PredictionComponent
   ],
   imports: [
     BrowserModule,
