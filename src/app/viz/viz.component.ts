@@ -12,12 +12,20 @@ import { StoreService } from '../store.service';
 })
 export class VizComponent implements OnInit {
 
-  constructor(private store: StoreService) { }
+  apiPieResponse:any;
+  isLoading=false;
+  constructor(private store: StoreService) {
+
+  }
 
   ngOnInit() {
 
     //
-    const map = L.map('map');
+    this.apiPieResponse = [];
+    //
+
+    $("#myMap").html("");
+    const map = L.map('myMap');
     $.getJSON('https://cdn.rawgit.com/johan/world.geo.json/34c96bba/countries/CAN.geo.json').then(function(geoJSON) {
       //https://cdn.rawgit.com/johan/world.geo.json/34c96bba/countries/CAN.geo.json / https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png / /maps.wikimedia.org/osm-intl/
       var layer = new L.TileLayer.BoundaryCanvas('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png', {
@@ -31,12 +39,12 @@ export class VizComponent implements OnInit {
       map.setView([57.634, -101.887], 5);
     });
     //
-
     var sourceColor = "red", sourceFillColor = "#dc3545";
     var queryType="PEOPLE_TO";
-
-    this.store.get('/map?query='+queryType+'&city=calgary&month=1', {}).subscribe((res) => {
-
+    var selectedCity = "calgary";
+    this.isLoading=true;
+    this.store.get('/map?query='+queryType+'&city='+selectedCity+'&month=1', {}).subscribe((res) => {
+      this.isLoading=false;
       console.log(res);
       var sourceLat = res["source_latlng"]["latitude"];
       var sourceLong = res["source_latlng"]["longitude"];
@@ -49,7 +57,16 @@ export class VizComponent implements OnInit {
       //
 
       //
-      $.each(res["data"], function(index,row){
+      $.each(res["data"], (index,row) => {
+        //
+        //'Business Class', 'Economy', 'First Class', 'Premium Economy'
+        if( row["city"].toLowerCase() == selectedCity)
+        {
+          this.apiPieResponse.push(row["Business Class"]);
+          this.apiPieResponse.push(row["Economy"]);
+          this.apiPieResponse.push(row["First Class"]);
+          this.apiPieResponse.push(row["Premium Economy"]);
+        }
         //
         var plotValue = row["total_expense"], plotLabel = "Cost";
         if( queryType == "PEOPLE_FROM" || queryType == "PEOPLE_TO" || queryType == "TOTAL_PASSENGER_TO" || queryType == "TOTAL_PASSENGER_FROM" )
@@ -83,9 +100,13 @@ export class VizComponent implements OnInit {
 
         //
       });
-
+      //
+      console.log("hai");
+      console.log(this.apiPieResponse);
+      console.log("hhhh");
 
     });
+
 
   }
 
