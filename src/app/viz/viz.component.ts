@@ -51,14 +51,18 @@ export class VizComponent implements OnInit {
     var selectedCity = $("#citySelected").val();
 
     console.log(this.apiMapResponse);
-    var sourceLat = this.apiMapResponse["source_latlng"]["latitude"];
-    var sourceLong = this.apiMapResponse["source_latlng"]["longitude"];
-    L.circle([sourceLat, sourceLong], {
-      color: sourceColor,
-      fillColor: sourceFillColor,
-      fillOpacity: 0.6,
-      radius: 20000
-    }).addTo(map);
+    if( this.apiMapResponse["source_latlng"] )
+    {
+      var sourceLat = this.apiMapResponse["source_latlng"]["latitude"];
+      var sourceLong = this.apiMapResponse["source_latlng"]["longitude"];
+      L.circle([sourceLat, sourceLong], {
+        color: sourceColor,
+        fillColor: sourceFillColor,
+        fillOpacity: 0.6,
+        radius: 20000
+      }).addTo(map);
+
+    }
     //
       //
       $.each(this.apiMapResponse["data"], (index,row) => {
@@ -103,7 +107,7 @@ export class VizComponent implements OnInit {
           fillColor: "#007AFF",
           fillOpacity: 0.6,
           weight: 1,
-          radius: plotValue * 2000
+          radius: plotValue * plotQuantifier
         }).addTo(map);
 
         circle.bindPopup("Total "+plotLabel+" " + row["city"] + ": " + plotValue);
