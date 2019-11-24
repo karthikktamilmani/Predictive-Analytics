@@ -5,35 +5,6 @@
   top: 120px;
   background-color: #F8F9FD;
 
-  .card {
-    min-width: 300px;
-    border-color: #eef0f5;
-    margin-bottom: 55px;
-    transition: all 0.3s ease-in;
-
-    &.map-view {
-      background-color: transparent;
-      border: none;
-      .card-body {
-        background-color: transparent;
-      }
-    }
-
-    &:hover {
-      border-color: none;
-      box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
-    }
-  }
-
-  .card-body {
-    background-color: #fff;
-
-    .code {
-      color: #343957;
-      opacity: 0.9;
-    }
-  }
-
   .card-img-right {
     width: 45%;
   }

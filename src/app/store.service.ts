@@ -9,7 +9,7 @@ import { catchError, tap, map } from 'rxjs/operators';
 *  @author      :: Sharmila Thirumalainathan, B00823668
 */
 
-const apiURL = 'http://localhost:1330';
+const apiURL = 'http://192.168.99.100:1330';
 
 
 @Injectable({
@@ -18,10 +18,6 @@ const apiURL = 'http://localhost:1330';
 
 export class StoreService {
   url = '';
-
-  email = 'sharmilathirumalai@gmail.com';
-
-  emailStr = '';
 
   constructor(private http: HttpClient) {
 
@@ -47,27 +43,27 @@ export class StoreService {
     return throwError('Something went wrong; please try again later.');
   };
 
-/*
-  post(endpoint, data = {}) {
+  /*
+    post(endpoint, data = {}) {
 
-    if (endpoint == '/signout') {
-      this.email = "";
-      sessionStorage.clear();
+      if (endpoint == '/signout') {
+        this.email = "";
+        sessionStorage.clear();
+      }
+      else if (endpoint == '/signin' || endpoint == '/user') {
+        this.email = data["email"];
+        sessionStorage.setItem("email", this.email);
+      } else if (endpoint != '/resetpassword' && endpoint != '/forgotpassword' && this.email != "") {
+        data["email"] = this.email;
+      }
+      this.url = `${apiURL}${endpoint}`;
+      return this.http.post(this.url, data, httpOptions)
+        .pipe(
+          tap(data => console.log('Request successful')),
+          catchError(this.handleError)
+        );
     }
-    else if (endpoint == '/signin' || endpoint == '/user') {
-      this.email = data["email"];
-      sessionStorage.setItem("email", this.email);
-    } else if (endpoint != '/resetpassword' && endpoint != '/forgotpassword' && this.email != "") {
-      data["email"] = this.email;
-    }
-    this.url = `${apiURL}${endpoint}`;
-    return this.http.post(this.url, data, httpOptions)
-      .pipe(
-        tap(data => console.log('Request successful')),
-        catchError(this.handleError)
-      );
-  }
-*/
+  */
   get(endpoint, data = {}) {
     this.url = `${apiURL}${endpoint}`;
 

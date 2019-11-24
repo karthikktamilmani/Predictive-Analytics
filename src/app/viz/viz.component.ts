@@ -12,9 +12,9 @@ import { StoreService } from '../store.service';
 })
 export class VizComponent implements OnInit {
 
-  apiPieResponse:any;
-  @Input() apiMapResponse:any;
-  isLocationSelected=false;
+  apiPieResponse: any;
+  @Input() apiMapResponse: any;
+  isLocationSelected = false;
   constructor(private store: StoreService) {
 
   }
@@ -25,7 +25,7 @@ export class VizComponent implements OnInit {
     this.apiPieResponse = [];
     //
     console.log("haai");
-    $("#myMap").html("");
+
     const map = L.map('myMap');
     $.getJSON('https://cdn.rawgit.com/johan/world.geo.json/34c96bba/countries/CAN.geo.json').then(function(geoJSON) {
       //https://cdn.rawgit.com/johan/world.geo.json/34c96bba/countries/CAN.geo.json / https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png / /maps.wikimedia.org/osm-intl/
@@ -37,83 +37,79 @@ export class VizComponent implements OnInit {
       map.addLayer(layer);
       //var canadaLayer = L.geoJSON(geoJSON);
       //map.fitBounds(ukLayer.getBounds());
-      map.setView([57.634, -101.887], 5);
+      map.setView([57.634, -101.887], 3.5);
     });
     //
     var sourceColor = "red", sourceFillColor = "#dc3545";
-    var queryType="PEOPLE_TO";
+    var queryType = "PEOPLE_TO";
     var selectedCity = "calgary";
 
-      console.log(this.apiMapResponse);
-      var sourceLat = this.apiMapResponse["source_latlng"]["latitude"];
-      var sourceLong = this.apiMapResponse["source_latlng"]["longitude"];
-      L.circle([sourceLat, sourceLong], {
-        color: sourceColor,
-        fillColor: sourceFillColor,
-        fillOpacity: 0.6,
-        radius: 20000
-      }).addTo(map);
+    console.log(this.apiMapResponse);
+    var sourceLat = this.apiMapResponse["source_latlng"]["latitude"];
+    var sourceLong = this.apiMapResponse["source_latlng"]["longitude"];
+    // L.circle([sourceLat, sourceLong], {
+    //   color: sourceColor,
+    //   fillColor: sourceFillColor,
+    //   fillOpacity: 0.6,
+    //   radius: 20000
+    // }).addTo(map);
+    //
+
+    //
+    $.each(this.apiMapResponse["data"], (index, row) => {
       //
+      //'Business Class', 'Economy', 'First Class', 'Premium Economy'
+      var newRowObj = [];
+      newRowObj.push(row["Business Class"]);
+      newRowObj.push(row["Economy"]);
+      newRowObj.push(row["First Class"]);
+      newRowObj.push(row["Premium Economy"]);
 
       //
-      $.each(this.apiMapResponse["data"], (index,row) => {
-        //
-        //'Business Class', 'Economy', 'First Class', 'Premium Economy'
-        var newRowObj = [];
-          newRowObj.push(row["Business Class"]);
-          newRowObj.push(row["Economy"]);
-          newRowObj.push(row["First Class"]);
-          newRowObj.push(row["Premium Economy"]);
-
-        //
-        var plotValue = row["total_expense"], plotLabel = "Cost";
-        if( queryType == "PEOPLE_FROM" || queryType == "PEOPLE_TO" || queryType == "TOTAL_PASSENGER_TO" || queryType == "TOTAL_PASSENGER_FROM" )
-        {
-          plotValue = row["passenger_count"];
-          plotLabel = "People to";
-          if( queryType == "PEOPLE_FROM" || queryType == "TOTAL_PASSENGER_FROM" )
-          {
-            plotLabel = "People from";
-          }
+      var plotValue = row["total_expense"], plotLabel = "Cost";
+      if (queryType == "PEOPLE_FROM" || queryType == "PEOPLE_TO" || queryType == "TOTAL_PASSENGER_TO" || queryType == "TOTAL_PASSENGER_FROM") {
+        plotValue = row["passenger_count"];
+        plotLabel = "People to";
+        if (queryType == "PEOPLE_FROM" || queryType == "TOTAL_PASSENGER_FROM") {
+          plotLabel = "People from";
         }
-        //
-        var destLat = row["latlng"]["latitude"];
-        var destLon = row["latlng"]["longitude"];
-        //
-        var circle = L.circle([destLat, destLon], {
-          color: "green",
-          fillColor: "#36BF1D",
-          fillOpacity: 0.6,
-          radius: plotValue * 2000
-        }).addTo(map);
-
-        circle.bindPopup("Total "+plotLabel+" " + row["city"] + ": " + plotValue);
-
-        circle.on('mouseover', function (e) {
-            this.openPopup();
-        });
-        circle.on('mouseout', function (e) {
-            this.closePopup();
-        });
-        circle.on('click',  (e) => {
-            console.log(plotLabel);
-            this.apiPieResponse=[];
-            this.isLocationSelected=false;
-            setTimeout(()=>{
-            this.apiPieResponse = newRowObj;
-            this.isLocationSelected=true;
-          },1000);
-        });
-
-        //
-      });
+      }
       //
-      console.log("hai");
-      console.log(this.apiPieResponse);
-      console.log("hhhh");
+      var destLat = row["latlng"]["latitude"];
+      var destLon = row["latlng"]["longitude"];
+      //
+      var circle = L.circle([destLat, destLon], {
+        color: "blue",
+        fillColor: "#007AFF",
+        fillOpacity: 0.6,
+        weight: 1,
+        radius: plotValue * 2000
+      }).addTo(map);
 
+      circle.bindPopup("Total " + plotLabel + " " + row["city"] + ": " + plotValue);
 
+      circle.on('mouseover', function(e) {
+        this.openPopup();
+      });
+      circle.on('mouseout', function(e) {
+        this.closePopup();
+      });
+      circle.on('click', (e) => {
+        console.log(plotLabel);
+        this.apiPieResponse = [];
+        this.isLocationSelected = false;
+        setTimeout(() => {
+          this.apiPieResponse = newRowObj;
+          this.isLocationSelected = true;
+        }, 300);
+      });
 
+      //
+    });
+    //
+    console.log("hai");
+    console.log(this.apiPieResponse);
+    console.log("hhhh");
   }
 
 

@@ -115,7 +115,7 @@ $sidebar-sm-width: 70px;
   top: 0;
   right: 0;
   left: $sidebar-width;
-  margin: 0 5px;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
   transition: all 0.3s ease-in;
   z-index: 2000;
   background-color: #F8F9FD;
@@ -186,12 +186,12 @@ $sidebar-sm-width: 70px;
       }
 
   .form-control {
-    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
-      padding: 11px 12px 11px;
+      padding: 10px 12px;
       outline: none;
       width: 200px;
-      border-color: #e9ebf1;
+      border-color: #e8e8e8;
       background-color: #fff!important;
+      border-bottom-width: 3px;
       font-size: 12px;
       border-radius: 0;
       -webkit-transition: all 0.4s ease-in;

@@ -17,13 +17,12 @@ export class DoughnutChartComponent implements OnInit {
     var myPieChart = new Chart(ctx, {
       type: 'doughnut',
       data: {
-        labels: ['Red'],
+        labels: ['Average', 'Total'],
         datasets: [{
           label: '# of Votes',
           data: [12, 100 - 12],
           backgroundColor: [
-            'rgba(255, 99, 132, 0.9)'
-
+            '#ffc107'
           ],
           //cutoutPercentage : ,
           borderWidth: 5
