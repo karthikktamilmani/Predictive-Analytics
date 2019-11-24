@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import Chart from 'chart.js';
 import * as $ from 'jquery';
+import { StoreService } from '../store.service';
 //import CanvasJS from 'canvasjs';
 //var CanvasJS = require('canvasjs');
 
@@ -11,14 +12,49 @@ import * as $ from 'jquery';
 })
 export class PieChartComponent implements OnInit {
 
-  constructor() { }
+  @Input() pieResponse=[];
+
+  constructor(private store: StoreService) { }
 
   ngOnInit() {
 
+/*
+    var queryType="PEOPLE_TO";
+    this.store.get('/map?query='+queryType+'&city=calgary&month=1', {}).subscribe((res) => {
+      //
+
+
+      //
+    });
+*/
+
+    console.log("eeeeeeee");
+    console.log(this.pieResponse);
+    //
+
+    //
     var ctx = $("#piechartContainer");
     var myPieChart = new Chart(ctx, {
-      type: 'pie',
-      data: {
+    type: 'pie',
+    data: {
+    labels: ['Business Class', 'Economy', 'First Class', 'Premium Economy'],
+    datasets: [{
+        label: 'Cost',
+        data: this.pieResponse,
+        backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+        ],
+
+        borderWidth: 5
+    }]
+  }
+});
+
+/*
+data: {
         labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
         datasets: [{
           label: '# of Votes',

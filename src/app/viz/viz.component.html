@@ -1,4 +1,17 @@
-<div>
-  <div id="map" style="width:900px">
+<!-- <div>
+  <div id="map" style="width:900px;">
   </div>
+      <div *ngIf="isLoading; else elseBlock" class="spinner-border text-center" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <ng-template #elseBlock>
+        <div>
+          viz works!
+        </div>
+        <app-pie-chart [pieResponse]="apiPieResponse"></app-pie-chart>
+        <app-line-chart></app-line-chart>
+        <app-doughnut-chart></app-doughnut-chart>
+      </ng-template>
+</div> -->
+<div id="myMap" style="width:900px;">
 </div>
