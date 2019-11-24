@@ -4,11 +4,13 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { VizComponent } from './viz/viz.component';
+import { LayoutComponent } from './layout/layout.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    VizComponent
+    VizComponent,
+    LayoutComponent
   ],
   imports: [
     BrowserModule,
