@@ -34,64 +34,64 @@
         </div>
         <div class="form-group bg-transparent">
           <label>Source</label>
-          <select class="form-control" id="citySelected">
-            <option value="calgary">calgary</option>
-            <option value="edmonton">edmonton</option>
-            <option value="fredericton">fredericton</option>
-            <option value="halifax">halifax</option>
-            <option value="montreal">montreal</option>
-            <option value="ottawa">ottawa</option>
-            <option value="quebec">quebec</option>
-            <option value="regina">regina</option>
-            <option value="saskatoon">saskatoon</option>
-            <option value="st john's">st john's</option>
-            <option value="thunder bay">thunder bay</option>
-            <option value="toronto">toronto</option>
-            <option value="vancouver">vancouver</option>
-            <option value="victoria">victoria</option>
-            <option value="winnipeg">winnipeg</option>
-            <option value="yellowknife">yellowknife</option>
+          <select class="form-control" id="sourceSel">
+            <option value="Calgary">Calgary</option>
+            <option value="Edmonton">Edmonton</option>
+            <option value="Fredericton">Fredericton</option>
+            <option value="Halifax">Halifax</option>
+            <option value="Montreal">Montreal</option>
+            <option value="Ottawa">Ottawa</option>
+            <option value="Quebec">Quebec</option>
+            <option value="Regina">Regina</option>
+            <option value="Saskatoon">Saskatoon</option>
+            <option value="st john's">St John's</option>
+            <option value="Thunder bay">Thunder bay</option>
+            <option value="Toronto">Toronto</option>
+            <option value="Vancouver">Vancouver</option>
+            <option value="victoria">Victoria</option>
+            <option value="winnipeg">Winnipeg</option>
+            <option value="yellowknife">Yellowknife</option>
           </select>
         </div>
         <div class="form-group bg-transparent">
           <label>Destination</label>
-          <select class="form-control" id="citySelected">
-            <option value="calgary">calgary</option>
-            <option value="edmonton">edmonton</option>
-            <option value="fredericton">fredericton</option>
-            <option value="halifax">halifax</option>
-            <option value="montreal">montreal</option>
-            <option value="ottawa">ottawa</option>
-            <option value="quebec">quebec</option>
-            <option value="regina">regina</option>
-            <option value="saskatoon">saskatoon</option>
-            <option value="st john's">st john's</option>
-            <option value="thunder bay">thunder bay</option>
-            <option value="toronto">toronto</option>
-            <option value="vancouver">vancouver</option>
-            <option value="victoria">victoria</option>
-            <option value="winnipeg">winnipeg</option>
-            <option value="yellowknife">yellowknife</option>
+          <select class="form-control" id="desSel">
+            <option value="Edmonton">Edmonton</option>
+            <option value="Calgary">Calgary</option>
+            <option value="Fredericton">Fredericton</option>
+            <option value="Halifax">Halifax</option>
+            <option value="Montreal">Montreal</option>
+            <option value="Ottawa">Ottawa</option>
+            <option value="Quebec">Quebec</option>
+            <option value="Regina">Regina</option>
+            <option value="Saskatoon">Saskatoon</option>
+            <option value="st john's">St John's</option>
+            <option value="Thunder bay">Thunder bay</option>
+            <option value="Toronto">Toronto</option>
+            <option value="Vancouver">Vancouver</option>
+            <option value="victoria">Victoria</option>
+            <option value="winnipeg">Winnipeg</option>
+            <option value="yellowknife">Yellowknife</option>
           </select>
         </div>
         <div class="form-group bg-transparent">
           <label>Passenger Count</label>
-          <input type="number" class="form-control" placeholder="1">
+          <input type="number" class="form-control" id="peopleCount" placeholder="1" value="1">
         </div>
         <button type="button" class="btn btn-primary run-report">Go</button>
       </nav>
 
     </div>
 
-    <div class="course-wrapper px-4">
+    <div *ngIf="isLoaded" class="course-wrapper px-4">
       <div class="row justify-content-around mt-4">
         <div class="card flex-md-row col-sm-5 col-xs-12 p-0 cost-box">
           <div class="card-body justify-content-center">
             <h3>Predicted Cost &nbsp;<i class="fas fa-question-circle" style="font-size:12px;vertical-align: middle;"></i></h3>
             <div class="amount">
-              C$2,000
+              C${{selectedMonthCost}}
             </div>
-            <div class="text-warning help-txt">Ideal before 10 weeks</div>
+            <div class="text-warning help-txt">Ideal {{optimalTimePeriod}} weeks</div>
           </div>
         </div>
         <div class="card flex-md-row col-sm-6 col-xs-12 p-0 details">
