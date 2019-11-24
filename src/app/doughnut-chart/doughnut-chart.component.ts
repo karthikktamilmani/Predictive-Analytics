@@ -15,20 +15,20 @@ export class DoughnutChartComponent implements OnInit {
 
     var ctx = $("#doughchartContainer");
     var myPieChart = new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-    labels: ['Red'],
-    datasets: [{
-        label: '# of Votes',
-        data: [12, 100-12],
-        backgroundColor: [
-            'rgba(255, 99, 132, 0.2)'
+      type: 'doughnut',
+      data: {
+        labels: ['Red'],
+        datasets: [{
+          label: '# of Votes',
+          data: [12, 100 - 12],
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.9)'
 
-        ],
-        //cutoutPercentage : ,
-        borderWidth: 5
-    }]
-    }
+          ],
+          //cutoutPercentage : ,
+          borderWidth: 5
+        }]
+      }
     });
 
   }

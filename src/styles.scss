@@ -1,1 +1,69 @@
 /* You can add global styles to this file, and also import other style files */
+
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+.btn-square {
+  border-radius: 0 !important;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.font-sm {
+  font-size: 11px;
+}
+
+.dropdown-item {
+  cursor: pointer;
+  font-size: 14px !important;
+
+  &:focus,
+  &:hover {
+    background-color: #f0f0f0;
+  }
+}
+
+.animate {
+  animation-duration: 0.2s;
+  -webkit-animation-duration: 0.2s;
+  animation-fill-mode: both;
+  -webkit-animation-fill-mode: both;
+}
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes appear {
+  0% {
+    -webkit-opacity: 0;
+  }
+
+  100% {
+    -webkit-opacity: 1;
+  }
+}
+
+.appear {
+  -webkit-animation-name: appear;
+  animation-name: appear;
+}
+
+router-outlet ~ * {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+.oversize {
+  width: 100%;
+  height: 100%;
+}

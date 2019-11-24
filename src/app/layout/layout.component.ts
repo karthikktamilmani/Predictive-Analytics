@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-layout',
@@ -12,4 +13,11 @@ export class LayoutComponent implements OnInit {
   ngOnInit() {
   }
 
+  collapse() {
+    if (document.getElementById("wrapper").classList.contains("collapse")) {
+      $('.wrapper').removeClass('collapse');
+    } else {
+      $('.wrapper').addClass('collapse');
+    }
+  }
 }

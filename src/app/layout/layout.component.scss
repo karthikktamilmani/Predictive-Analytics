@@ -1,24 +1,45 @@
-.map{
-    height:30em;
-    background:#ceb2b2;
-}
+@import '../common/layout.scss';
 
-.navbar-nav.mr-auto > li{
-     margin-right: 7px;
-}
+.course-wrapper {
+  position: relative;
+  top: 140px;
+  background-color: #F8F9FD;
 
-.left,.right{
-    height:10em;
-}
-.left{
-    background: lightslategrey;
-}
+  .card {
+    min-width: 300px;
+    border-color: #eef0f5;
+    margin-bottom: 55px;
+    transition: all 0.3s ease-in;
 
-.right{
-    background: lavenderblush;
-}
+    &.map-view {
+      background-color: transparent;
+      border: none;
+      .card-body {
+        background-color: transparent;
+      }
+    }
 
-.bottom{
-    height: 10em;
-    background: salmon;
+    &:hover {
+      border-color: none;
+      box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+    }
+  }
+
+  .card-body {
+    background-color: #fff;
+
+    .code {
+      color: #343957;
+      opacity: 0.9;
+    }
+  }
+
+  .card-img-right {
+    width: 45%;
+  }
+
+  .actions {
+    position: relative;
+    bottom: -75px;
+  }
 }
