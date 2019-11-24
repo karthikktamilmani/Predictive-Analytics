@@ -10,18 +10,47 @@ import { StoreService } from '../store.service';
 export class LayoutComponent implements OnInit {
 
   apiResponse:any;
-  isLoading=false;
+  isLoading=true;
   constructor(private store: StoreService) { }
 
   ngOnInit() {
 
-    var queryType="PEOPLE_TO";
-    var selectedCity = "calgary";
+
+    // this.store.get('/cities', {}).subscribe((res) => {
+    //   //
+    //   $.each(res,(index,rowvalue)=> {
+    //     $("#citySelected").append($("<option>",{text : rowvalue , value : rowvalue }));
+    //   });
+    //
+    // });
+
+  }
+
+  submitQuery(){
+
     this.isLoading=true;
-    this.store.get('/map?query='+queryType+'&city='+selectedCity+'&month=1', {}).subscribe((res) => {
+
+    setTimeout(() => {
+      var queryType= $("#queryType").val();
+      var selectedCity = $("#citySelected").val();
+      this.store.get('/map?query='+queryType+'&city='+selectedCity+'&month='+$("#month").val(), {}).subscribe((res) => {
+          //
+          this.apiResponse=res;
+          this.isLoading=false;
+          //
+        });
+    },1000);
+
+  }
+
+  callQuery(self)
+  {
+    var queryType= $("#queryType").val();
+    var selectedCity = $("#citySelected").val();
+    self.store.get('/map?query='+queryType+'&city='+selectedCity+'&month='+$("#month").val(), {}).subscribe((res) => {
         //
-        this.apiResponse=res;
-        this.isLoading=false;
+        self.apiResponse=res;
+        self.isLoading=false;
         //
       });
 

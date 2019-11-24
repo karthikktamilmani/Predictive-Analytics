@@ -41,8 +41,8 @@ export class VizComponent implements OnInit {
     });
     //
     var sourceColor = "red", sourceFillColor = "#dc3545";
-    var queryType = "PEOPLE_TO";
-    var selectedCity = "calgary";
+    var queryType= $("#queryType").val();
+    var selectedCity = $("#citySelected").val();
 
     console.log(this.apiMapResponse);
     var sourceLat = this.apiMapResponse["source_latlng"]["latitude"];
@@ -66,17 +66,58 @@ export class VizComponent implements OnInit {
       newRowObj.push(row["Premium Economy"]);
 
       //
-      var plotValue = row["total_expense"], plotLabel = "Cost";
-      if (queryType == "PEOPLE_FROM" || queryType == "PEOPLE_TO" || queryType == "TOTAL_PASSENGER_TO" || queryType == "TOTAL_PASSENGER_FROM") {
-        plotValue = row["passenger_count"];
-        plotLabel = "People to";
-        if (queryType == "PEOPLE_FROM" || queryType == "TOTAL_PASSENGER_FROM") {
-          plotLabel = "People from";
+      $.each(this.apiMapResponse["data"], (index,row) => {
+        //
+        //'Business Class', 'Economy', 'First Class', 'Premium Economy'
+        var newRowObj = [];
+          newRowObj.push(row["Business Class"]);
+          newRowObj.push(row["Economy"]);
+          newRowObj.push(row["First Class"]);
+          newRowObj.push(row["Premium Economy"]);
+
+        //
+        var plotValue = row["total_expense"], plotLabel = "Cost", plotQuantifier = 10;
+        if( queryType == "PEOPLE_FROM" || queryType == "PEOPLE_TO" || queryType == "TOTAL_PASSENGER_TO" || queryType == "TOTAL_PASSENGER_FROM" )
+        {
+          plotValue = row["passenger_count"];
+          plotLabel = "People to";
+          plotQuantifier = 800;
+          if( queryType == "PEOPLE_FROM" || queryType == "TOTAL_PASSENGER_FROM" )
+          {
+            plotLabel = "People from";
+          }
         }
-      }
-      //
-      var destLat = row["latlng"]["latitude"];
-      var destLon = row["latlng"]["longitude"];
+        //
+        var destLat = row["latlng"]["latitude"];
+        var destLon = row["latlng"]["longitude"];
+        //
+        var circle = L.circle([destLat, destLon], {
+          color: "green",
+          fillColor: "#36BF1D",
+          fillOpacity: 0.6,
+          radius: plotValue * plotQuantifier
+        }).addTo(map);
+
+        circle.bindPopup("Total "+plotLabel+" " + row["city"] + ": " + plotValue);
+
+        circle.on('mouseover', function (e) {
+            this.openPopup();
+        });
+        circle.on('mouseout', function (e) {
+            this.closePopup();
+        });
+        circle.on('click',  (e) => {
+            console.log(plotLabel);
+            this.apiPieResponse=[];
+            this.isLocationSelected=false;
+            setTimeout(()=>{
+            this.apiPieResponse = newRowObj;
+            this.isLocationSelected=true;
+          },1000);
+        });
+
+        //
+      });
       //
       var circle = L.circle([destLat, destLon], {
         color: "blue",

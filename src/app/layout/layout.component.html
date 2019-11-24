@@ -25,32 +25,48 @@
       <nav class="navbar navbar-light pb-0 pr-2 justify-content-center">
         <div class="form-group bg-transparent">
           <label>Month</label>
-          <select class="form-control">
-            <option>January </option>
-            <option>February </option>
-            <option>March</option>
-            <option>April</option>
+          <select class="form-control" id="month">
+            <option value="1">Jan</option>
+            <option value="2">Feb</option>
+            <option value="3">Mar</option>
+            <option value="4">Apr</option>
           </select>
         </div>
         <div class="form-group bg-transparent">
           <label>Query</label>
-          <select class="form-control">
-            <option>Top routes</option>
-            <option>Expensive routes</option>
-            <option>3</option>
-            <option>4</option>
+          <select class="form-control" id="queryType">
+            <option value="PEOPLE_FROM">Most People From</option>
+            <option value="PEOPLE_TO">Most People To</option>
+            <option value="ROUTE_FROM">Most Expensive From</option>
+            <option value="ROUTE_TO">Most Expensive To</option>
+            <option value="TOTAL_COST_TO">Total Cost to</option>
+            <option value="TOTAL_COST_FROM">Total Cost From</option>
+            <option value="TOTAL_PASSENGER_TO">Total Passenger To</option>
+            <option value="TOTAL_PASSENGER_FROM">Total Passenger From</option>
           </select>
         </div>
         <div class="form-group  bg-transparent">
           <label>City</label>
-          <select class="form-control">
-            <option>Vancouver</option>
-            <option>Halifax</option>
-            <option>3</option>
-            <option>4</option>
+          <select class="form-control" id="citySelected">
+              <option value="calgary">calgary</option>
+              <option value="edmonton">edmonton</option>
+              <option value="fredericton">fredericton</option>
+              <option value="halifax">halifax</option>
+              <option value="montreal">montreal</option>
+              <option value="ottawa">ottawa</option>
+              <option value="quebec">quebec</option>
+              <option value="regina">regina</option>
+              <option value="saskatoon">saskatoon</option>
+              <option value="st john's">st john's</option>
+              <option value="thunder bay">thunder bay</option>
+              <option value="toronto">toronto</option>
+              <option value="vancouver">vancouver</option>
+              <option value="victoria">victoria</option>
+              <option value="winnipeg">winnipeg</option>
+              <option value="yellowknife">yellowknife</option>
           </select>
         </div>
-        <button type="button" class="btn btn-primary run-report">Go</button>
+        <button type="button" class="btn btn-primary run-report" (click)="submitQuery();">Go</button>
       </nav>
 
     </div>
