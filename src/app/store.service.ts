@@ -9,7 +9,7 @@ import { catchError, tap, map } from 'rxjs/operators';
 *  @author      :: Sharmila Thirumalainathan, B00823668
 */
 
-const apiURL = 'http://frugal-flights.herokuapp.com';
+const apiURL = 'https://frugal-flights.herokuapp.com';
 
 
 @Injectable({
