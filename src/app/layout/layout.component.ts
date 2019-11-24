@@ -35,13 +35,24 @@ export class LayoutComponent implements OnInit {
     setTimeout(() => {
       var queryType = $("#queryType").val();
       var selectedCity = $("#citySelected").val();
-      this.store.get('/map?query=' + queryType + '&city=' + selectedCity + '&month=' + $("#month").val(), {}).subscribe((res) => {
-        //
-        this.apiResponse = res;
-        this.isLoading = false;
-        this.collapse();
-        //
-      });
+
+      if (selectedCity == undefined) {
+        this.store.get('/map?query=' + queryType + '&month=' + $("#month").val(), {}).subscribe((res) => {
+          //
+          this.apiResponse = res;
+          this.isLoading = false;
+          this.collapse();
+          //
+        });
+      } else {
+        this.store.get('/map?query=' + queryType + '&city=' + selectedCity + '&month=' + $("#month").val(), {}).subscribe((res) => {
+          //
+          this.apiResponse = res;
+          this.isLoading = false;
+          this.collapse();
+          //
+        });
+      }
     }, 1000);
 
   }

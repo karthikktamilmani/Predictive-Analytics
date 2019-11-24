@@ -30,6 +30,14 @@
             <option value="2">Feb</option>
             <option value="3">Mar</option>
             <option value="4">Apr</option>
+            <option value="5">May</option>
+            <option value="6">June</option>
+            <option value="7">July</option>
+            <option value="8">Aug</option>
+            <option value="9">Sep</option>
+            <option value="10">Oct</option>
+            <option value="11">Nov</option>
+            <option value="12">Dec</option>
           </select>
         </div>
         <div class="form-group bg-transparent">
@@ -96,35 +104,15 @@
         </div>
         <div class="card flex-md-row col-sm-6 col-xs-12 p-0 details">
           <div class="card-body align-items-center justify-content-center">
+            <div  *ngFor="let item of barObjCons;">
             <div>
-              <span class="float-right">C$1300.35</span>
-              <span>Nov</span>
+              <span class="float-right">C${{item.value}}</span>
+              <span class="font-weight-bold text-muted">{{item.month}}</span>
             </div>
             <div class="progress">
-              <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+              <div class="progress-bar progress-bar-striped" role="progressbar" [ngClass]="item.class" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
-            <div>
-              <span class="float-right">C$1800.35</span>
-              <span>Dec</span>
-            </div>
-            <div class="progress">
-              <div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-            </div>
-            <div>
-              <span class="float-right">C$3000.35</span>
-              <span>Feb</span>
-            </div>
-            <div class="progress">
-              <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-            </div>
-
-            <div>
-              <span class="float-right">C$3000.35</span>
-              <span>Mar</span>
-            </div>
-            <div class="progress">
-              <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-            </div>
+          </div>
           </div>
         </div>
 

@@ -70,7 +70,7 @@ h3 {
 }
 
 .help-txt {
-  color: #ffa502 !important;
+  color: #d35400 !important;
       font-size: 14px;
     text-align: center;
   margin-bottom: 10px;
@@ -86,4 +86,19 @@ h3 {
 
 .table {
   font-size: 14px;
+}
+
+.progress-bar {
+  &.high {
+    width: 100%;
+    background-color: #dc3545!important;
+  }
+  &.low {
+    width: 25%;
+    background-color: #28a745!important;
+  }
+  &.medium {
+    width: 75%;
+    background-color: #ffc107!important;
+  }
 }
