@@ -119,35 +119,21 @@
         <div class="card col-sm-11 col-xs-12 p-0">
           <h4 class="title">Passenger trend</h4>
           <div class="card-body d-flex justify-content-center">
-            <app-line-chart></app-line-chart>
+            <app-line-chart [lineResponse]="apiLineResponse"></app-line-chart>
             <table class="table">
               <thead>
                 <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">First</th>
-                  <th scope="col">Last</th>
-                  <th scope="col">Handle</th>
+                  <th scope="col">Month</th>
+                  <th scope="col">Passenger Count</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
+
+                <tr *ngFor="let item of lineTableValue">
+                  <td>{{item.month}}</td>
+                  <td>{{item.value}}</td>
                 </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>Larry</td>
-                  <td>the Bird</td>
-                  <td>@twitter</td>
-                </tr>
+
               </tbody>
             </table>
           </div>

@@ -9,10 +9,13 @@ import { StoreService } from '../store.service';
 })
 export class PredictionComponent implements OnInit {
 
+
   isLoaded = false;
   selectedMonthCost: string;
   optimalTimePeriod: string;
   barObjCons: any;
+  apiLineResponse: any;
+  lineTableValue: any;
   constructor(private store: StoreService) { }
 
   ngOnInit() {
@@ -60,8 +63,7 @@ export class PredictionComponent implements OnInit {
           }
           selectedMonths.push(labelObj[currentMonthIndex + 1]);
           selectedMonths.push(labelObj[currentMonthIndex + 2]);
-        }
-        else {
+        } else {
           selectedMonths.push(labelObj[currentMonthIndex - 2]);
           selectedMonths.push(labelObj[currentMonthIndex - 1]);
           selectedMonths.push(labelObj[currentMonthIndex + 1]);
@@ -74,10 +76,26 @@ export class PredictionComponent implements OnInit {
           this.barObjCons.push({ month: rowValue, value: costObj[rowValue].toFixed(2), class: classess[index] })
         });
         //
+        var newLineObj = [];
+        this.lineTableValue = [];
+        var selectedCityTrend = res["passenger_trends"][source];
+        $.each(labelObj, (index, rowValue) => {
+          newLineObj.push(selectedCityTrend[rowValue]);
+          //
+          this.lineTableValue.push({ month: rowValue, value: selectedCityTrend[rowValue] });
+        });
+        var lineResObj = {
+          labels: labelObj,
+          data: newLineObj
+        }
+
+        this.apiLineResponse = lineResObj;
+        //
         this.isLoaded = true;
         this.collapse();
         //
       });
+
     }, 1000);
 
   }
