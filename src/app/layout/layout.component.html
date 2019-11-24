@@ -68,29 +68,12 @@
         <div class="col-sm-5 col-xs-0 p-0">
         </div>
       </div>
-      <div class="row justify-content-around mt-4">
-        <div class="card flex-md-row col-sm-11 col-xs-12 p-0 map-view">
-          <div class="card-body align-items-center d-flex justify-content-center">
-            <app-viz></app-viz>
-          </div>
-        </div>
-        <div class="card flex-md-row col-sm-5 col-xs-12 p-0">
-          <div class="card-body align-items-center d-flex justify-content-center">
-            <app-pie-chart></app-pie-chart>
-          </div>
-        </div>
-        <div class="card flex-md-row col-sm-5 col-xs-12 p-0">
-          <div class="card-body align-items-center d-flex justify-content-center">
-            <app-line-chart></app-line-chart>
-          </div>
-        </div>
-        <div class="card flex-md-row col-sm-5 col-xs-12 p-0">
-          <div class="card-body align-items-center d-flex justify-content-center">
-            <app-doughnut-chart></app-doughnut-chart>
-          </div>
-        </div>
-
+      <div *ngIf="isLoading; else elseBlock" class="spinner-border text-center" role="status">
+        <span class="sr-only">Loading...</span>
       </div>
+      <ng-template #elseBlock>
+        <app-viz [apiMapResponse]="apiResponse"></app-viz>
+      </ng-template>
     </div>
   </div>
 </div>

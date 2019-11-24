@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery';
+import { StoreService } from '../store.service';
 
 @Component({
   selector: 'app-layout',
@@ -8,9 +9,22 @@ import * as $ from 'jquery';
 })
 export class LayoutComponent implements OnInit {
 
-  constructor() { }
+  apiResponse:any;
+  isLoading=false;
+  constructor(private store: StoreService) { }
 
   ngOnInit() {
+
+    var queryType="PEOPLE_TO";
+    var selectedCity = "calgary";
+    this.isLoading=true;
+    this.store.get('/map?query='+queryType+'&city='+selectedCity+'&month=1', {}).subscribe((res) => {
+        //
+        this.apiResponse=res;
+        this.isLoading=false;
+        //
+      });
+
   }
 
   collapse() {

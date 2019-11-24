@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 declare let L;
 import '../../assets/BoundaryCanvas.js';
 import * as $ from 'jquery';
@@ -13,7 +13,8 @@ import { StoreService } from '../store.service';
 export class VizComponent implements OnInit {
 
   apiPieResponse:any;
-  isLoading=false;
+  @Input() apiMapResponse:any;
+  isLocationSelected=false;
   constructor(private store: StoreService) {
 
   }
@@ -23,7 +24,7 @@ export class VizComponent implements OnInit {
     //
     this.apiPieResponse = [];
     //
-
+    console.log("haai");
     $("#myMap").html("");
     const map = L.map('myMap');
     $.getJSON('https://cdn.rawgit.com/johan/world.geo.json/34c96bba/countries/CAN.geo.json').then(function(geoJSON) {
@@ -42,12 +43,10 @@ export class VizComponent implements OnInit {
     var sourceColor = "red", sourceFillColor = "#dc3545";
     var queryType="PEOPLE_TO";
     var selectedCity = "calgary";
-    this.isLoading=true;
-    this.store.get('/map?query='+queryType+'&city='+selectedCity+'&month=1', {}).subscribe((res) => {
-      this.isLoading=false;
-      console.log(res);
-      var sourceLat = res["source_latlng"]["latitude"];
-      var sourceLong = res["source_latlng"]["longitude"];
+
+      console.log(this.apiMapResponse);
+      var sourceLat = this.apiMapResponse["source_latlng"]["latitude"];
+      var sourceLong = this.apiMapResponse["source_latlng"]["longitude"];
       L.circle([sourceLat, sourceLong], {
         color: sourceColor,
         fillColor: sourceFillColor,
@@ -57,16 +56,15 @@ export class VizComponent implements OnInit {
       //
 
       //
-      $.each(res["data"], (index,row) => {
+      $.each(this.apiMapResponse["data"], (index,row) => {
         //
         //'Business Class', 'Economy', 'First Class', 'Premium Economy'
-        if( row["city"].toLowerCase() == selectedCity)
-        {
-          this.apiPieResponse.push(row["Business Class"]);
-          this.apiPieResponse.push(row["Economy"]);
-          this.apiPieResponse.push(row["First Class"]);
-          this.apiPieResponse.push(row["Premium Economy"]);
-        }
+        var newRowObj = [];
+          newRowObj.push(row["Business Class"]);
+          newRowObj.push(row["Economy"]);
+          newRowObj.push(row["First Class"]);
+          newRowObj.push(row["Premium Economy"]);
+
         //
         var plotValue = row["total_expense"], plotLabel = "Cost";
         if( queryType == "PEOPLE_FROM" || queryType == "PEOPLE_TO" || queryType == "TOTAL_PASSENGER_TO" || queryType == "TOTAL_PASSENGER_FROM" )
@@ -97,6 +95,15 @@ export class VizComponent implements OnInit {
         circle.on('mouseout', function (e) {
             this.closePopup();
         });
+        circle.on('click',  (e) => {
+            console.log(plotLabel);
+            this.apiPieResponse=[];
+            this.isLocationSelected=false;
+            setTimeout(()=>{
+            this.apiPieResponse = newRowObj;
+            this.isLocationSelected=true;
+          },1000);
+        });
 
         //
       });
@@ -105,7 +112,6 @@ export class VizComponent implements OnInit {
       console.log(this.apiPieResponse);
       console.log("hhhh");
 
-    });
 
 
   }
