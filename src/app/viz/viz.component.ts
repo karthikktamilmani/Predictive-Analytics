@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 declare let L;
 import '../../assets/BoundaryCanvas.js';
 import * as $ from 'jquery';
+import Chart from 'chart.js';
 import { StoreService } from '../store.service';
 
 
@@ -15,6 +16,11 @@ export class VizComponent implements OnInit {
   apiPieResponse: any;
   @Input() apiMapResponse: any;
   isLocationSelected = false;
+  isResponseLoaded = false;
+  apiDoughResponse: any;
+  highestValue:string;
+  lowestValue:string;
+  apiLineResponse:any;
   constructor(private store: StoreService) {
 
   }
@@ -47,14 +53,12 @@ export class VizComponent implements OnInit {
     console.log(this.apiMapResponse);
     var sourceLat = this.apiMapResponse["source_latlng"]["latitude"];
     var sourceLong = this.apiMapResponse["source_latlng"]["longitude"];
-    // L.circle([sourceLat, sourceLong], {
-    //   color: sourceColor,
-    //   fillColor: sourceFillColor,
-    //   fillOpacity: 0.6,
-    //   radius: 20000
-    // }).addTo(map);
-    //
-
+    L.circle([sourceLat, sourceLong], {
+      color: sourceColor,
+      fillColor: sourceFillColor,
+      fillOpacity: 0.6,
+      radius: 20000
+    }).addTo(map);
     //
       //
       $.each(this.apiMapResponse["data"], (index,row) => {
@@ -65,7 +69,19 @@ export class VizComponent implements OnInit {
           newRowObj.push(row["Economy"]);
           newRowObj.push(row["First Class"]);
           newRowObj.push(row["Premium Economy"]);
-
+        var newLineObj = [];
+        var extraParaObj = this.apiMapResponse["extra"][row["city"]];
+        var labelObj = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+        $.each(labelObj,(index,rowValue)=>{
+          if( extraParaObj )
+          {
+            newLineObj.push(extraParaObj[rowValue]);
+          }
+        });
+        var lineResObj = {
+          labels : labelObj,
+          data : newLineObj
+        }
         //
         var plotValue = row["total_expense"], plotLabel = "Cost", plotQuantifier = 10;
         if( queryType == "PEOPLE_FROM" || queryType == "PEOPLE_TO" || queryType == "TOTAL_PASSENGER_TO" || queryType == "TOTAL_PASSENGER_FROM" )
@@ -101,16 +117,67 @@ export class VizComponent implements OnInit {
         circle.on('click',  (e) => {
             console.log(plotLabel);
             this.apiPieResponse=[];
+            this.apiLineResponse=[];
             this.isLocationSelected=false;
             setTimeout(()=>{
             this.apiPieResponse = newRowObj;
+            this.apiLineResponse = lineResObj;
             this.isLocationSelected=true;
           },300);
         });
 
         //
       });
+      //
+      this.apiDoughResponse = [12 , 100 -12];
+      //data for dough Chart
+      this.isResponseLoaded=true;
+      //
+var doughColor = '#ffc107';
+        //
+        var dataObj = this.apiMapResponse["extra"][$("#citySelected option:selected").text()];
+        //
+        if( dataObj )
+        {
+          var eachPert = dataObj["max"] - dataObj["min"];
+          eachPert = eachPert/100;
+          this.highestValue = dataObj["max"];
+          this.lowestValue = dataObj["min"];
+          //
+          var currentMonthPer = dataObj[$("#month option:selected").text()];
+          //
+          if( ((currentMonthPer - dataObj["min"]) / eachPert ) < 25 )
+          {
+            doughColor = "#28a745";
+          }
+          else if ( ((currentMonthPer - dataObj["min"]) / eachPert ) > 70 )
+          {
+            doughColor = "#dc3545";
+          }
+          //currentMonthPer=currentMonthPer/eachPert;
+          this.apiDoughResponse[0]=currentMonthPer;
+          this.apiDoughResponse[1]=dataObj["max"]-currentMonthPer;
+        }
+        //
 
+
+    //
+    var ctx = $("#doughchartContainer");
+    var myPieChart = new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Average', 'Total'],
+        datasets: [{
+          label: '# of Votes',
+          data:  this.apiDoughResponse,
+          backgroundColor: [
+            doughColor
+          ],
+          //cutoutPercentage : ,
+          borderWidth: 5
+        }]
+      }
+    });
     //
     console.log("hai");
     console.log(this.apiPieResponse);

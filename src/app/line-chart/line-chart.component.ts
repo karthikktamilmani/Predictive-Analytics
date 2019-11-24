@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import Chart from 'chart.js';
 import * as $ from 'jquery';
 
@@ -9,19 +9,30 @@ import * as $ from 'jquery';
 })
 export class LineChartComponent implements OnInit {
 
+  @Input() lineResponse:any;
+
   constructor() { }
 
   ngOnInit() {
 
-
+    if( this.lineResponse == null )
+    {
+      this.lineResponse = {
+        labels : ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        data : [12, 19, 3, 5, 2, 3]
+      };
+    }
+    //
+    var labelSel = this.lineResponse["labels"];
+    var dataSel = this.lineResponse["data"]
     var ctx = $("#linechartContainer");
     var myPieChart = new Chart(ctx, {
       type: 'line',
       data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: labelSel,
         datasets: [{
           label: '',
-          data: [12, 19, 3, 5, 2, 3],
+          data: dataSel,
 
           borderColor: [
             '#dc3545'

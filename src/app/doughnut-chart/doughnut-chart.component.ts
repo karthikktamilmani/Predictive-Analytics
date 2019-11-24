@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import Chart from 'chart.js';
 import * as $ from 'jquery';
 
@@ -9,6 +9,7 @@ import * as $ from 'jquery';
 })
 export class DoughnutChartComponent implements OnInit {
 
+  @Input() apiResponse:any;
   constructor() { }
 
   ngOnInit() {

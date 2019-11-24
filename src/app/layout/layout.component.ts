@@ -24,6 +24,8 @@ export class LayoutComponent implements OnInit {
     //
     // });
 
+    this.submitQuery();
+
   }
 
   submitQuery(){
@@ -37,29 +39,18 @@ export class LayoutComponent implements OnInit {
           //
           this.apiResponse=res;
           this.isLoading=false;
+          this.collapse();
           //
         });
     },1000);
 
   }
 
-  callQuery(self)
-  {
-    var queryType= $("#queryType").val();
-    var selectedCity = $("#citySelected").val();
-    self.store.get('/map?query='+queryType+'&city='+selectedCity+'&month='+$("#month").val(), {}).subscribe((res) => {
-        //
-        self.apiResponse=res;
-        self.isLoading=false;
-        //
-      });
-
-  }
-
   collapse() {
     if (document.getElementById("wrapper").classList.contains("collapse")) {
-      $('.wrapper').removeClass('collapse');
-    } else {
+      // $('.wrapper').removeClass('collapse');
+    }
+    else {
       $('.wrapper').addClass('collapse');
     }
   }
