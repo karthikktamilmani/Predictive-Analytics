@@ -9,7 +9,7 @@ import { catchError, tap, map } from 'rxjs/operators';
 *  @author      :: Sharmila Thirumalainathan, B00823668
 */
 
-const apiURL = 'http://192.168.99.100:1330';
+const apiURL = 'http://localhost:1330';
 
 
 @Injectable({

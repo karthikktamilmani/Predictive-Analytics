@@ -56,15 +56,6 @@ export class VizComponent implements OnInit {
     //
 
     //
-    $.each(this.apiMapResponse["data"], (index, row) => {
-      //
-      //'Business Class', 'Economy', 'First Class', 'Premium Economy'
-      var newRowObj = [];
-      newRowObj.push(row["Business Class"]);
-      newRowObj.push(row["Economy"]);
-      newRowObj.push(row["First Class"]);
-      newRowObj.push(row["Premium Economy"]);
-
       //
       $.each(this.apiMapResponse["data"], (index,row) => {
         //
@@ -92,10 +83,11 @@ export class VizComponent implements OnInit {
         var destLon = row["latlng"]["longitude"];
         //
         var circle = L.circle([destLat, destLon], {
-          color: "green",
-          fillColor: "#36BF1D",
+          color: "blue",
+          fillColor: "#007AFF",
           fillOpacity: 0.6,
-          radius: plotValue * plotQuantifier
+          weight: 1,
+          radius: plotValue * 2000
         }).addTo(map);
 
         circle.bindPopup("Total "+plotLabel+" " + row["city"] + ": " + plotValue);
@@ -113,40 +105,12 @@ export class VizComponent implements OnInit {
             setTimeout(()=>{
             this.apiPieResponse = newRowObj;
             this.isLocationSelected=true;
-          },1000);
+          },300);
         });
 
         //
       });
-      //
-      var circle = L.circle([destLat, destLon], {
-        color: "blue",
-        fillColor: "#007AFF",
-        fillOpacity: 0.6,
-        weight: 1,
-        radius: plotValue * 2000
-      }).addTo(map);
 
-      circle.bindPopup("Total " + plotLabel + " " + row["city"] + ": " + plotValue);
-
-      circle.on('mouseover', function(e) {
-        this.openPopup();
-      });
-      circle.on('mouseout', function(e) {
-        this.closePopup();
-      });
-      circle.on('click', (e) => {
-        console.log(plotLabel);
-        this.apiPieResponse = [];
-        this.isLocationSelected = false;
-        setTimeout(() => {
-          this.apiPieResponse = newRowObj;
-          this.isLocationSelected = true;
-        }, 300);
-      });
-
-      //
-    });
     //
     console.log("hai");
     console.log(this.apiPieResponse);
