@@ -9,8 +9,9 @@ import { StoreService } from '../store.service';
 })
 export class LayoutComponent implements OnInit {
 
-  apiResponse:any;
-  isLoading=true;
+  apiResponse: any;
+  isLoading = true;
+  showCity = true;
   constructor(private store: StoreService) { }
 
   ngOnInit() {
@@ -25,25 +26,32 @@ export class LayoutComponent implements OnInit {
     // });
 
     this.submitQuery();
+  }
+
+  submitQuery() {
+
+    this.isLoading = true;
+
+    setTimeout(() => {
+      var queryType = $("#queryType").val();
+      var selectedCity = $("#citySelected").val();
+      this.store.get('/map?query=' + queryType + '&city=' + selectedCity + '&month=' + $("#month").val(), {}).subscribe((res) => {
+        //
+        this.apiResponse = res;
+        this.isLoading = false;
+        this.collapse();
+        //
+      });
+    }, 1000);
 
   }
 
-  submitQuery(){
-
-    this.isLoading=true;
-
-    setTimeout(() => {
-      var queryType= $("#queryType").val();
-      var selectedCity = $("#citySelected").val();
-      this.store.get('/map?query='+queryType+'&city='+selectedCity+'&month='+$("#month").val(), {}).subscribe((res) => {
-          //
-          this.apiResponse=res;
-          this.isLoading=false;
-          this.collapse();
-          //
-        });
-    },1000);
-
+  changeQuery(e) {
+    if (["TOTAL_COST_TO", "TOTAL_COST_FROM", "TOTAL_PASSENGER_TO", "TOTAL_PASSENGER_FROM"].includes(e.target.value)) {
+      this.showCity = false;
+    } else {
+      this.showCity = true;
+    }
   }
 
   collapse() {

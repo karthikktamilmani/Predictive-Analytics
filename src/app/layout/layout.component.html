@@ -30,11 +30,20 @@
             <option value="2">Feb</option>
             <option value="3">Mar</option>
             <option value="4">Apr</option>
+            <option value="5">May</option>
+            <option value="6">June</option>
+            <option value="7">July</option>
+            <option value="8">Aug</option>
+            <option value="9">Sep</option>
+            <option value="10">Oct</option>
+            <option value="11">Nov</option>
+            <option value="12">Dec</option>
           </select>
         </div>
+
         <div class="form-group bg-transparent">
           <label style="font-weight:500;">Query</label>
-          <select class="form-control" id="queryType" style="width:340px;">
+          <select class="form-control" id="queryType" style="width:340px;"  (change)="changeQuery($event)">
             <option value="PEOPLE_FROM">To which cities are most passengers travelling to from</option>
             <option value="PEOPLE_TO">Which cities have the most passengers travelling to</option>
             <option value="ROUTE_FROM">Which are the most expensive cities to travel to from</option>
@@ -45,7 +54,7 @@
             <option value="TOTAL_PASSENGER_FROM">How many passengers travelled from each city</option>
           </select>
         </div>
-        <div class="form-group  bg-transparent">
+        <div class="form-group  bg-transparent"  *ngIf="showCity">
           <label style="font-weight:500;">City</label>
           <select class="form-control" id="citySelected">
               <option value="calgary">Calgary</option>
